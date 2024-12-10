@@ -1,23 +1,31 @@
 "use client";
 
 import Link from "next/link";
+import { usePathname } from "next/navigation";
 import styled from "styled-components";
 
 const MenuData: { name: string; href: string }[] = [
   { name: "Home", href: "/" },
-  { name: "About", href: "/about" },
   { name: "Project", href: "/project" },
 ];
 
 export default function Header() {
+  const path = usePathname();
   return (
     <StyledWrapper>
       <header className="fixed top-0 left-0 w-full backdrop-blur-md z-50">
         <nav className="container mx-auto px-4 py-3 flex justify-between items-center">
-          <ul className="flex space-x-6 text-gray-500 font-medium">
+          <ul className="flex space-x-6 font-medium">
             {MenuData.map((item) => (
-              <li key={item.href}>
-                <Link href={item.href} passHref className="hover:text-gray-200">
+              <li key={item.href} className={item.href == path ? "text-gray-100" : "text-gray-500"}>
+                <Link
+                  href={item.href}
+                  className={"hover:text-gray-200 text-sm"}
+                  style={{
+                    letterSpacing: 2,
+                    textTransform: "uppercase",
+                  }}
+                >
                   {item.name}
                 </Link>
               </li>
@@ -26,7 +34,7 @@ export default function Header() {
 
           <div className="flex space-x-4">
             <a
-              href="https://www.linkedin.com"
+              href="https://www.linkedin.com/in/hanif-radityo/"
               target="_blank"
               rel="noopener noreferrer"
               className="text-gray-700 hover:text-gray-200"
@@ -36,7 +44,7 @@ export default function Header() {
               </svg>
             </a>
             <a
-              href="https://www.github.com"
+              href="https://github.com/radityohanif"
               target="_blank"
               rel="noopener noreferrer"
               className="text-gray-700 hover:text-gray-200"
